@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Uitstel aangifte erfbelasting 2026</title>
+<style>
+:root{
+  --blauw-donker:#154273;
+  --blauw-balk:#8FCAE7;
+  --blauw-knop:#0C5C8E;
+  --blauw-knop-hover:#0A4E79;
+  --link:#0071B3;
+  --pagina:#EDEDED;
+  --rand:#767676;
+  --fout-bg:#FBE1E1;
+  --fout-rand:#D52B1E;
+  --info-bg:#DCEEF8;
+  --select-bg:#E8F4FB;
+  --grijs-tekst:#8C8C8C;
+  color-scheme:light;
+}
+/* ---------- prototypebalk ---------- */
+.prototype{
+  background:#A3170F;color:#fff;padding:12px 24px;font-size:15px;line-height:1.45;
+  text-align:center;position:sticky;top:0;z-index:99;
+}
+.prototype strong{text-transform:uppercase;letter-spacing:.5px}
+@media print{.prototype{position:static}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--pagina);
+  color:#000;
+  font-family:"RO Sans","Rijksoverheid Sans","Segoe UI",Verdana,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+}
+.wrap{max-width:1270px;margin:0 auto;padding:0 24px}
+
+/* ---------- kop ---------- */
+.topbar{background:#fff;padding:18px 0}
+.logo{display:flex;align-items:center;gap:14px;justify-content:center}
+.logo .wapen{
+  width:62px;height:86px;background:var(--blauw-donker);
+  display:flex;align-items:center;justify-content:center;
+}
+.logo .wapen span{color:#fff;font-size:11px;letter-spacing:.5px;text-align:center;line-height:1.2;opacity:.85}
+.logo .naam{font-size:18px;color:#000}
+.balk{background:var(--blauw-balk)}
+.balk .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.balk .titel{font-weight:700;font-size:19px;color:#0d2c4e}
+.balk .gebruiker{display:flex;align-items:center;gap:10px;font-size:15px;color:#0d2c4e}
+.balk .gebruiker .slot{font-size:13px}
+
+/* ---------- opmaak kolommen ---------- */
+.main{display:grid;grid-template-columns:400px 1fr;gap:30px;padding-top:28px;padding-bottom:60px;align-items:start}
+.kaart{background:#fff;padding:28px 30px;margin-bottom:24px}
+.kaart h1{font-size:19px;margin:0 0 18px;font-weight:700}
+.kaart h2{font-size:26px;margin:0 0 22px;font-weight:700}
+.inhoud h3{font-size:16px;margin:22px 0 6px;font-weight:700}
+.inhoud p{margin:0 0 14px}
+.inhoud ul{margin:6px 0 14px;padding-left:22px}
+.inhoud li{margin-bottom:6px}
+a{color:var(--link)}
+
+/* ---------- stappen ---------- */
+.stappen{list-style:none;margin:0;padding:0}
+.stappen li{padding:8px 14px;display:flex;justify-content:space-between;align-items:center;color:#000}
+.stappen li.toekomst{color:var(--grijs-tekst)}
+.stappen li.actief{background:#EDF6FB}
+.stappen .vink{color:#39870C;font-weight:700}
+
+/* ---------- zijlinks ---------- */
+.zijlinks{list-style:none;margin:0;padding:0}
+.zijlinks li{margin-bottom:16px}
+.zijlinks a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--link);font-size:16px}
+.zijlinks a:hover{text-decoration:underline}
+.zijlinks .ico{width:18px;text-align:center;font-weight:700}
+.formcode{color:var(--grijs-tekst);font-size:15px;margin-top:24px}
+
+/* ---------- vragen ---------- */
+.vraag{display:flex;gap:24px;align-items:flex-start;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap}
+.vraag .tekst{flex:1 1 380px;max-width:430px;padding-top:6px}
+.keuze{display:flex;gap:14px}
+.keuze label{
+  display:flex;align-items:center;gap:10px;
+  border:1px solid var(--rand);background:#fff;
+  padding:8px 18px 8px 14px;min-width:96px;cursor:pointer;
+}
+.keuze label .bol{
+  width:20px;height:20px;border-radius:50%;border:2px solid #000;
+  display:inline-block;position:relative;flex:0 0 auto;background:#fff;
+}
+.keuze input{position:absolute;opacity:0;width:0;height:0}
+.keuze input:checked + .bol{border-color:var(--link)}
+.keuze input:checked + .bol::after{
+  content:"";position:absolute;inset:3px;border-radius:50%;background:var(--link);
+}
+.keuze input:focus-visible + .bol{box-shadow:0 0 0 3px #BEE3F5}
+.keuze label:has(input:checked){border-color:var(--link);background:var(--select-bg)}
+.keuze.fout label{border-color:var(--fout-rand)}
+
+.hulp{
+  display:inline-block;border:1px solid var(--link);color:var(--link);
+  font-size:12px;line-height:1;padding:3px 5px;margin-left:4px;cursor:pointer;
+  background:#fff;vertical-align:middle;
+}
+
+/* ---------- velden ---------- */
+.blok-titel{font-weight:700;font-size:17px;margin:26px 0 16px}
+.veld{display:flex;gap:24px;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+.veld label.lbl{flex:1 1 180px;max-width:380px;min-width:0}
+.veld .invoer{flex:0 0 360px;display:flex}
+.veld input[type=text]{
+  width:100%;padding:10px 12px;border:1px solid var(--rand);font:inherit;background:#fff;
+}
+.veld input.fout{border:2px solid var(--fout-rand)}
+.datum{display:flex;flex:0 0 360px}
+.datum input{width:160px;padding:10px 12px;border:1px solid var(--rand);font:inherit}
+.datum input.fout{border:2px solid var(--fout-rand)}
+.datum button{
+  background:var(--blauw-knop);border:0;color:#fff;width:42px;cursor:pointer;font-size:17px;
+}
+
+/* ---------- meldingen ---------- */
+.melding{position:relative;padding:18px 22px;margin:14px 0 22px;display:flex;gap:14px}
+.melding::before{
+  content:"";position:absolute;top:-9px;left:22px;width:0;height:0;
+  border-left:9px solid transparent;border-right:9px solid transparent;
+}
+.melding.fout{background:var(--fout-bg)}
+.melding.fout::before{border-bottom:9px solid var(--fout-bg)}
+.melding.info{background:var(--info-bg)}
+.melding.info::before{border-bottom:9px solid var(--info-bg)}
+.melding .ico{color:var(--fout-rand);font-size:18px;line-height:1.3;flex:0 0 auto}
+.melding p{margin:0 0 10px}
+.melding p:last-child{margin-bottom:0}
+.melding .sluit{position:absolute;top:14px;right:18px;border:0;background:none;font-size:20px;cursor:pointer;line-height:1}
+.aanname{
+  border:1px dashed #B58100;background:#FFF8E8;color:#5C4200;
+  padding:12px 16px;margin:0 0 22px;font-size:14px;
+}
+
+/* ---------- knoppen ---------- */
+.knoppen{display:flex;justify-content:flex-end;gap:14px;margin-top:30px}
+button.knop{font:inherit;padding:12px 22px;cursor:pointer;border:1px solid var(--blauw-knop)}
+button.primair{background:var(--blauw-knop);color:#fff;font-weight:700}
+button.primair:hover{background:var(--blauw-knop-hover)}
+button.secundair{background:#fff;color:var(--blauw-knop);font-weight:700}
+button.secundair:hover{background:#EDF6FB}
+
+/* ---------- overzicht ---------- */
+table.overzicht{width:100%;border-collapse:collapse;margin-bottom:10px}
+table.overzicht th{text-align:left;font-weight:700;padding:10px 0;border-bottom:1px solid #D6D6D6;font-size:17px}
+table.overzicht td{padding:9px 0;border-bottom:1px solid #EAEAEA;vertical-align:top}
+table.overzicht td.v{width:55%;padding-right:20px}
+table.overzicht td.a{font-weight:700}
+
+.akkoord{display:flex;gap:12px;align-items:flex-start;margin:18px 0}
+.akkoord input{width:20px;height:20px;margin-top:2px}
+
+/* ---------- vinkjes ---------- */
+.vinkjes{margin:6px 0 18px 20px}
+.vinkjes label{display:flex;gap:14px;align-items:flex-start;cursor:pointer;margin:0 0 18px;position:relative}
+.vinkjes input{position:absolute;opacity:0;width:0;height:0}
+.vinkjes .box{width:22px;height:22px;border:2px solid #000;flex:0 0 auto;position:relative;background:#fff;margin-top:1px}
+.vinkjes input:checked + .box{background:var(--blauw-knop);border-color:var(--blauw-knop)}
+.vinkjes input:checked + .box::after{
+  content:"";position:absolute;left:6px;top:1px;width:6px;height:12px;
+  border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg);
+}
+.vinkjes input:focus-visible + .box{box-shadow:0 0 0 3px #BEE3F5}
+.vinkjes.fout .box{border-color:var(--fout-rand)}
+
+/* ---------- info met i-icoon, waarschuwing, hulptekst ---------- */
+.melding.info .i{
+  flex:0 0 auto;width:18px;height:18px;margin-top:2px;background:var(--link);color:#fff;
+  font:700 13px/18px Georgia,serif;text-align:center;
+}
+.melding.waarschuwing{background:#FFF4D6}
+.melding.waarschuwing::before{border-bottom:9px solid #FFF4D6}
+.melding.waarschuwing .ico{color:#B35900}
+.hulptekst{background:var(--info-bg);padding:14px 56px 14px 18px;position:relative;margin:-4px 0 20px;font-size:15px}
+.hulptekst .sluit{position:absolute;top:10px;right:14px;border:0;background:none;font-size:20px;cursor:pointer;line-height:1}
+textarea.motivatie{width:100%;min-height:150px;padding:10px 12px;border:1px solid var(--rand);font:inherit;resize:vertical}
+textarea.motivatie.fout{border:2px solid var(--fout-rand)}
+.teller{font-size:14px;color:var(--grijs-tekst);text-align:right;margin-top:4px}
+.voorwaarde-slot{margin:0 0 20px}
+
+@media (max-width:900px){
+  .main{grid-template-columns:1fr}
+  .veld .invoer,.datum{flex:1 1 100%}
+}
+@media print{
+  .balk,.zijkolom,.knoppen{display:none}
+  .main{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="prototype"><strong>Prototype</strong> &mdash; dit is geen formulier van de Belastingdienst. Nabouw voor test- en ontwerpdoeleinden; vul geen echte gegevens in. Er wordt niets verzonden of opgeslagen.</div>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="wapen"><span>logo</span></div>
+    <div class="naam">Belastingdienst</div>
+  </div>
+</div>
+
+<div class="balk">
+  <div class="wrap">
+    <div class="titel">Mijn Belastingdienst</div>
+    <div class="gebruiker"><span class="slot">&#128274;</span><span>J JANSEN</span><span>&#9662;</span></div>
+  </div>
+</div>
+
+<div class="wrap main">
+  <div class="zijkolom">
+    <div class="kaart">
+      <h1>Uitstel aangifte erfbelasting 2026</h1>
+      <ul class="stappen" id="stappen"></ul>
+    </div>
+    <div class="kaart">
+      <ul class="zijlinks">
+        <li><a href="#" onclick="return false"><span class="ico">?</span>Help</a></li>
+        <li><a href="#" onclick="window.print();return false"><span class="ico">&#128424;</span>Afdrukken</a></li>
+        <li><a href="#" onclick="opslaan();return false"><span class="ico">&#128190;</span>Opslaan</a></li>
+        <li><a href="#" onclick="afsluiten();return false"><span class="ico">&#10006;</span>Afsluiten</a></li>
+      </ul>
+      <div class="formcode">SUC 041E</div>
+    </div>
+  </div>
+
+  <div class="kaart inhoud" id="inhoud"></div>
+</div>
+
+<script>
+"use strict";
+
+/* ------------------------------------------------------------------
+   Nabouw "Uitstel aangifte erfbelasting 2026" (Mijn Belastingdienst).
+   Gebaseerd op screenshots: Introductie, Gegevens, Reden uitstel
+   (contactvoorkeur) en de infotekst van Overzicht.
+   Onderdelen die (nog) niet op een screenshot of instructie berusten
+   zijn gemarkeerd met AANNAME.
+------------------------------------------------------------------- */
+
+/* ---- instellingen ---- */
+var FORMULIERJAAR = 2026;
+var MIN_WOORDEN = 5;   // bij <= 5 woorden: waarschuwing (niet-blokkerend)
+
+var URL_UITSTELFORMULIER = "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/themaoverstijgend/programmas_en_formulieren/aanvraag-uitstel-erfbelasting";
+var URL_ERFBELASTING = "https://www.belastingdienst.nl/erfbelasting";
+var URL_MAILEN = "https://www.belastingdienst.nl/mailen";
+var URL_BELASTINGRENTE = "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/standaard_functies/prive/contact/rechten_en_plichten_bij_de_belastingdienst/belastingrente/overzicht_percentages_belastingrente";
+
+var STAPPEN = [
+  {id:"introductie",  naam:"Introductie"},
+  {id:"gegevens",     naam:"Gegevens"},
+  {id:"reden",        naam:"Reden uitstel"},
+  {id:"overzicht",    naam:"Overzicht"},
+  {id:"ondertekenen", naam:"Ondertekenen en verzenden"},
+  {id:"bevestiging",  naam:"Ontvangstbevestiging"}
+];
+
+var REDENEN = [
+  {id:"rechtszaak",     tekst:"Er loopt een rechtszaak over testamentuitleg, vaststelling van de erfgenamen, benoeming van een vereffenaar of verduistering van geld"},
+  {id:"ervenonderzoek", tekst:"Buitenlands ervenonderzoek"},
+  {id:"taxatie",        tekst:"U bent met de Belastingdienst in overleg over de waarde van onderdelen van de erfenis. Bijvoorbeeld een woning."}
+];
+
+function leegData(){
+  return {
+    brief:null, eerder:null,
+    redenen:{rechtszaak:false, ervenonderzoek:false, taxatie:false},
+    voorletters:"", tussenvoegsel:"", achternaam:"", bsn:"", overlijden:"",
+    motivatie:"", motivatieBevestigd:null,
+    contactEmail:false, contactTel:false, email:"", telefoon:"",
+    verklaring:false, verzondenOp:null
+  };
+}
+var data = leegData();
+var huidig = 0;
+var hulpZichtbaar = true;
+var hulpOpen = {};   // welke vraagteken-teksten zijn uitgeklapt
+
+/* ---------------- hulpfuncties ---------------- */
+
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function extern(url, tekst){ return '<a href="'+url+'" target="_blank" rel="noopener">'+tekst+'</a>'; }
+
+function elfproef(bsn){
+  if(!/^[0-9]{8,9}$/.test(bsn)) return false;
+  var s = bsn.length===8 ? "0"+bsn : bsn, som = 0;
+  for(var i=0;i<8;i++) som += Number(s[i])*(9-i);
+  som -= Number(s[8]);
+  return som % 11 === 0;
+}
+
+function parseDatum(v){
+  var m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(v.trim());
+  if(!m) return null;
+  var d = new Date(Number(m[3]), Number(m[2])-1, Number(m[1]));
+  if(d.getDate()!==Number(m[1]) || d.getMonth()!==Number(m[2])-1) return null;
+  return d;
+}
+function vandaag(){ var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+function aantalWoorden(t){ t = t.trim(); return t ? t.split(/\s+/).length : 0; }
+function eenRedenGekozen(){ return REDENEN.some(function(r){ return data.redenen[r.id]; }); }
+
+function tekenStappen(){
+  var alleen = huidig === 0; // op de introductie toont het formulier alleen die stap
+  el("stappen").innerHTML = STAPPEN.map(function(s,i){
+    if(alleen && i>0) return "";
+    var klas = i===huidig ? "actief" : (i<huidig ? "" : "toekomst");
+    var vink = i<huidig ? '<span class="vink">&#10003;</span>' : "";
+    return '<li class="'+klas+'"><span>'+s.naam+'</span>'+vink+'</li>';
+  }).join("");
+}
+
+function ga(i){ huidig = i; tekenStappen(); teken(); window.scrollTo(0,0); }
+
+/* ---------------- bouwstenen ---------------- */
+
+function foutBlok(html){
+  return '<div class="melding fout"><span class="ico">&#9888;</span><div><p>'+html+'</p></div></div>';
+}
+function waarschuwBlok(html){
+  return '<div class="melding waarschuwing"><span class="ico">&#9888;</span><div><p>'+html+'</p></div></div>';
+}
+function infoBlok(html){
+  return '<div class="melding info"><span class="i">i</span><div>'+html+'</div></div>';
+}
+function hulpKnop(id){
+  return '<span class="hulp" onclick="toggleHulptekst(\''+id+'\')" role="button" tabindex="0">?</span>';
+}
+function hulpTekst(id, html){
+  if(!hulpOpen[id]) return '';
+  return '<div class="hulptekst">'+html+
+         '<button class="sluit" onclick="toggleHulptekst(\''+id+'\')" aria-label="Sluiten">&#10006;</button></div>';
+}
+
+function radios(naam, waarde, fout){
+  return '<div class="keuze'+(fout?' fout':'')+'">'+
+    ['ja','nee'].map(function(w){
+      return '<label><input type="radio" name="'+naam+'" value="'+w+'"'+
+        (waarde===w?' checked':'')+' onchange="zetKeuze(\''+naam+'\',this.value)">'+
+        '<span class="bol"></span><span>'+(w==='ja'?'Ja':'Nee')+'</span></label>';
+    }).join('')+
+  '</div>';
+}
+
+function veldTekst(id, label, fout, extra){
+  return '<div class="veld"><label class="lbl" for="'+id+'">'+label+(extra||'')+'</label>'+
+    '<div class="invoer"><input type="text" id="'+id+'" value="'+esc(data[id])+'" class="'+(fout?'fout':'')+
+    '" oninput="data.'+id+'=this.value"></div></div>'+
+    (typeof fout === 'string' ? foutBlok(fout) : '');
+}
+
+/* ---------------- schermen ---------------- */
+
+function schermIntroductie(){
+  return ''+
+  '<h2>Introductie</h2>'+
+  '<p>U hebt vanaf de dag van overlijden 20 maanden de tijd om aangifte erfbelasting te doen. Lukt dit niet binnen deze termijn? In uitzonderlijke situaties kunt u eenmalig 4 maanden uitstel aanvragen. U moet dit wel motiveren.</p>'+
+  '<p><strong>Let op!</strong> Iedere verkrijger moet apart uitstel aanvragen.</p>'+
+  '<h3>U betaalt belastingrente als u uitstel krijgt</h3>'+
+  '<p>Ook als u uitstel krijgt, moet u vanaf 20 maanden na de overlijdensdatum belastingrente betalen. Kijk op '+extern(URL_BELASTINGRENTE,'belastingdienst.nl/percentage-belastingrente')+' voor het actuele rentepercentage.</p>'+
+  '<p>U kunt belastingrente beperken of voorkomen als wij binnen de aangiftetermijn een verzoek om een voorlopige aanslag erfbelasting van u ontvangen. Dan betaalt u mogelijk alleen belastingrente als het bedrag op de definitieve aanslag hoger is dan op de voorlopige aanslag.</p>'+
+  '<h3>Hulp nodig? <span class="hulp" onclick="toggleHulp()">?</span></h3>'+
+  (hulpZichtbaar ?
+    '<div class="melding info" style="display:block">'+
+      '<p>Klik op een vraagteken om te lezen hoe u de vraag moet beantwoorden.</p>'+
+      '<p>Staat er een link in die vraagtekentekst? Klik dan daarop voor meer informatie. De link opent in een nieuw venster.</p>'+
+      '<p>Ziet u geen nieuw venster? Waarschijnlijk hebt u de pop-upblokkering ingeschakeld. Schakel uw pop-upblokkering uit.</p>'+
+      '<button class="sluit" onclick="toggleHulp()" aria-label="Sluiten">&#10006;</button>'+
+    '</div>' : '')+
+  '<ul>'+
+    '<li>Klik op het vraagteken voor een korte toelichting bij de vraag.</li>'+
+    '<li>Kijk voor meer informatie op '+extern(URL_ERFBELASTING,'belastingdienst.nl/erfbelasting')+'.</li>'+
+  '</ul>'+
+  '<div class="knoppen"><button class="knop primair" onclick="ga(1)">&#10004; Volgende</button></div>';
+}
+
+function schermGegevens(v){
+  v = v || {};
+  var h = '<h2>Gegevens</h2>';
+
+  /* vraag 1 */
+  h += '<div class="vraag"><div class="tekst">Hebt u als erfgenaam een brief gekregen waarin staat dat u aangifte erfbelasting moet doen? <span class="hulp">?</span></div>'+
+       radios('brief', data.brief, data.brief==='nee' || v.brief)+'</div>';
+  if(v.brief) h += foutBlok(v.brief);
+  if(data.brief === 'nee'){
+    h += foutBlok('U kunt alleen uitstel aanvragen als u een brief hebt gekregen waarin staat dat u aangifte erfbelasting moet doen. U geeft aan dat u de aangiftebrief niet hebt ontvangen. Wilt u wel uitstel aanvragen? Neem dan contact op met de BelastingTelefoon voor nabestaanden: 0800 - 235 83 54.');
+  }
+
+  if(data.brief === 'ja'){
+    /* vraag 2 */
+    h += '<div class="vraag"><div class="tekst">Hebt u al eerder uitstel aangevraagd voor de aangifte erfbelasting van deze overledene? <span class="hulp">?</span></div>'+
+         radios('eerder', data.eerder, v.eerder)+'</div>';
+    if(v.eerder) h += foutBlok(v.eerder);
+
+    if(data.eerder === 'ja'){
+      h += '<div class="vinkjes'+(v.redenen?' fout':'')+'">'+
+        REDENEN.map(function(r){
+          var s = '<label><input type="checkbox"'+(data.redenen[r.id]?' checked':'')+
+                  ' onchange="zetReden(\''+r.id+'\',this.checked)"><span class="box"></span><span>'+r.tekst+'</span></label>';
+          if(r.id==='rechtszaak' && data.redenen.rechtszaak){
+            /* AANNAME: melding-tekst volgt nog */
+            s += infoBlok('<p><em>[Melding bij rechtszaak &ndash; tekst volgt]</em></p>');
+          }
+          return s;
+        }).join('')+
+      '</div>';
+      /* AANNAME: vervolg van deze zin volgt nog */
+      h += foutBlok('Staat uw situatie er niet bij, dan is een tweede uitstelverzoek niet mogelijk.');
+      if(v.redenen) h += foutBlok(v.redenen);
+    }
+
+    if(data.eerder === 'nee' || (data.eerder === 'ja' && eenRedenGekozen())){
+      h += '<div class="blok-titel">Gegevens overledene</div>';
+      h += veldTekst('voorletters','Voorletter(s)', v.voorletters);
+      h += veldTekst('tussenvoegsel','Tussenvoegsel(s)', false);
+      h += veldTekst('achternaam','Achternaam', v.achternaam);
+      h += '<div class="veld"><label class="lbl" for="bsn">Burgerservicenummer <span class="hulp">?</span></label>'+
+           '<div class="invoer"><input type="text" id="bsn" inputmode="numeric" maxlength="9" value="'+esc(data.bsn)+'" class="'+(v.bsn?'fout':'')+'" oninput="data.bsn=this.value"></div></div>';
+      if(v.bsn) h += foutBlok(v.bsn);
+      h += '<div class="veld"><label class="lbl" for="overlijden">Datum overlijden</label>'+
+           '<div class="datum"><input type="text" id="overlijden" placeholder="dd-mm-jjjj" maxlength="10" value="'+esc(data.overlijden)+'" class="'+(v.overlijden?'fout':'')+'" oninput="data.overlijden=this.value"><button type="button" onclick="return false" aria-label="Kalender">&#128197;</button></div></div>';
+      if(v.overlijden) h += foutBlok(v.overlijden);
+    }
+  }
+
+  h += '<div class="knoppen">'+
+       '<button class="knop secundair" onclick="ga(0)">&#8592; Vorige</button>'+
+       '<button class="knop primair" onclick="akkoordGegevens()">&#10004; Akkoord</button></div>';
+  return h;
+}
+
+function schermReden(v){
+  v = v || {};
+  var n = aantalWoorden(data.motivatie);
+  var h = '<h2>Reden uitstel</h2>';
+  h += '<div class="blok-titel" style="margin-top:0"><label for="motivatie">Geef aan waarom u uitstel nodig hebt voor het doen van aangifte erfbelasting</label></div>';
+  h += '<textarea id="motivatie" class="motivatie'+(v.motivatie?' fout':'')+'" oninput="data.motivatie=this.value;telWoorden()">'+esc(data.motivatie)+'</textarea>';
+  h += '<div class="teller" id="teller">'+n+(n===1?' woord':' woorden')+'</div>';
+  if(v.motivatie) h += foutBlok(v.motivatie);
+  if(v.weinig) h += waarschuwBlok(v.weinig);
+
+  h += infoBlok('<p>Om u goed te kunnen helpen, kan het zijn dat we nog vragen hebben over uw verzoek om uitstel. Wij nemen dan graag contact met u op.</p>');
+  h += '<p>Contactvoorkeur (Bellen doen we alleen op werkdagen tussen 08.00 en 17.00 uur. E-mailen is sneller.):</p>';
+  h += '<div class="vinkjes">'+
+       '<label><input type="checkbox"'+(data.contactEmail?' checked':'')+' onchange="zetContact(\'contactEmail\',this.checked)"><span class="box"></span><span>E-mail</span></label>'+
+       '<label><input type="checkbox"'+(data.contactTel?' checked':'')+' onchange="zetContact(\'contactTel\',this.checked)"><span class="box"></span><span>Telefoon</span></label>'+
+       '</div>';
+
+  if(data.contactEmail){
+    h += veldTekst('email','E-mailadres ', v.email, hulpKnop('email'));
+    h += hulpTekst('email','Vul een e-mailadres in. Dat is niet verplicht, maar wel handig. Wij kunnen u dan makkelijker bereiken als wij een vraag hebben over deze aangifte. E-mailen is niet altijd veilig. Meer weten over e-mailen met de Belastingdienst? Op '+extern(URL_MAILEN,'belastingdienst.nl/mailen')+' leest u hier meer over.');
+  }
+  if(data.contactTel){
+    h += veldTekst('telefoon','Telefoonnummer ', v.telefoon, hulpKnop('telefoon'));
+    h += hulpTekst('telefoon','Vul een telefoonnummer in. Dat is niet verplicht, maar wel handig. Wij kunnen u dan makkelijker bereiken als wij een vraag hebben over deze aangifte.');
+  }
+
+  h += '<div class="knoppen">'+
+       '<button class="knop secundair" onclick="ga(1)">&#8592; Vorige</button>'+
+       '<button class="knop primair" onclick="akkoordReden()">&#10004; Akkoord</button></div>';
+  return h;
+}
+
+function schermOverzicht(){
+  var naam = [data.voorletters, data.tussenvoegsel, data.achternaam].filter(Boolean).join(' ');
+  var redenen = REDENEN.filter(function(r){ return data.redenen[r.id]; }).map(function(r){ return r.tekst; });
+  var contact = [data.contactEmail?'E-mail':null, data.contactTel?'Telefoon':null].filter(Boolean).join(', ');
+  return '<h2>Overzicht</h2>'+
+  infoBlok('<p>Controleer de ingevulde gegevens.</p>'+
+           '<p>Als alle gegevens kloppen, klikt u op \'Opslaan en naar verzenden\' om de aangifte te verzenden. Wilt u nog gegevens aanpassen? Klik dan op \'Vorige\' om terug te gaan naar het vorige scherm.</p>')+
+  '<div class="aanname">De tabel hieronder is nog niet op een screenshot gebaseerd &mdash; ingevuld als aanname.</div>'+
+  '<table class="overzicht">'+
+    '<tr><th colspan="2">Gegevens</th></tr>'+
+    rij('Aangiftebrief ontvangen', data.brief==='ja'?'Ja':'Nee')+
+    rij('Eerder uitstel aangevraagd', data.eerder==='ja'?'Ja':'Nee')+
+    (data.eerder==='ja' ? rij('Voorwaarde(n)', redenen.join('; ')) : '')+
+    '<tr><th colspan="2">Gegevens overledene</th></tr>'+
+    rij('Naam', naam)+
+    rij('Burgerservicenummer', data.bsn)+
+    rij('Datum overlijden', data.overlijden)+
+    '<tr><th colspan="2">Reden uitstel</th></tr>'+
+    rij('Motivatie', data.motivatie)+
+    rij('Contactvoorkeur', contact)+
+    (data.contactEmail ? rij('E-mailadres', data.email) : '')+
+    (data.contactTel ? rij('Telefoonnummer', data.telefoon) : '')+
+  '</table>'+
+  '<div class="knoppen">'+
+  '<button class="knop secundair" onclick="ga(2)">&#8592; Vorige</button>'+
+  '<button class="knop primair" onclick="ga(4)">&#10004; Opslaan en naar verzenden</button></div>';
+}
+
+function rij(k,w){ return '<tr><td class="v">'+esc(k)+'</td><td class="a" style="white-space:pre-wrap">'+esc(w||'-')+'</td></tr>'; }
+
+function schermOndertekenen(){
+  return '<h2>Ondertekenen en verzenden</h2>'+
+  '<div class="aanname">Dit scherm is nog niet op een screenshot gebaseerd &mdash; ingevuld als aanname.</div>'+
+  '<p>U hebt alle vragen beantwoord. Onderteken uw aanvraag en verzend deze naar de Belastingdienst.</p>'+
+  '<div class="akkoord"><input type="checkbox" id="verklaring" '+(data.verklaring?'checked':'')+' onchange="data.verklaring=this.checked">'+
+  '<label for="verklaring">Ik verklaar dat ik dit formulier duidelijk, stellig en zonder voorbehoud heb ingevuld.</label></div>'+
+  '<div id="fout-onderteken"></div>'+
+  '<div class="knoppen">'+
+  '<button class="knop secundair" onclick="ga(3)">&#8592; Vorige</button>'+
+  '<button class="knop primair" onclick="verzend()">&#10004; Verzenden</button></div>';
+}
+
+function schermBevestiging(){
+  var d = data.verzondenOp || new Date();
+  var dd = String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
+  var tt = String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  return '<h2>Ontvangstbevestiging</h2>'+
+  '<div class="aanname">Dit scherm is nog niet op een screenshot gebaseerd &mdash; ingevuld als aanname.</div>'+
+  '<p>Uw aanvraag om uitstel is op '+dd+' om '+tt+' uur bij ons binnengekomen.</p>'+
+  '<p>Bewaar deze ontvangstbevestiging goed. U krijgt binnen 8 weken bericht over uw aanvraag.</p>'+
+  '<table class="overzicht">'+
+    rij('Kenmerk', 'SUC 041E')+
+    rij('Overledene', [data.voorletters,data.tussenvoegsel,data.achternaam].filter(Boolean).join(' '))+
+    rij('Datum overlijden', data.overlijden)+
+  '</table>'+
+  '<div class="knoppen"><button class="knop primair" onclick="window.print()">&#10004; Afdrukken</button></div>';
+}
+
+/* ---------------- acties ---------------- */
+
+function toggleHulp(){ hulpZichtbaar = !hulpZichtbaar; teken(); }
+function toggleHulptekst(id){ hulpOpen[id] = !hulpOpen[id]; teken(); }
+
+function zetKeuze(naam, waarde){
+  data[naam] = waarde;
+  if(naam === 'brief' && waarde === 'nee'){ data.eerder = null; }
+  teken();
+}
+function zetReden(id, aan){ data.redenen[id] = aan; teken(); }
+function zetContact(id, aan){ data[id] = aan; teken(); }
+
+function telWoorden(){
+  var n = aantalWoorden(data.motivatie);
+  var t = el('teller'); if(t) t.textContent = n + (n===1?' woord':' woorden');
+}
+
+function datumNL(d){
+  return String(d.getDate()).padStart(2,'0')+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+d.getFullYear();
+}
+/* Bovengrens: de systeemdatum, maar nooit later dan 31-12 van het belastingjaar. */
+function bovengrensOverlijden(){
+  var eind = new Date(FORMULIERJAAR, 11, 31);
+  var nu = vandaag();
+  return nu < eind ? nu : eind;
+}
+function bereikTekst(){
+  return 'Vul een datum in die ligt tussen 01-01-'+FORMULIERJAAR+' en '+datumNL(bovengrensOverlijden())+'.';
+}
+
+function valideerDatum(){
+  var d = parseDatum(data.overlijden);
+  if(!data.overlijden.trim()) return 'Vul de datum van overlijden in.';
+  if(!d) return 'Vul de datum in als dd-mm-jjjj.';
+  if(d.getFullYear() < FORMULIERJAAR){
+    return 'Vond het overlijden plaats in '+(FORMULIERJAAR-1)+' of eerder? Gebruik dan het formulier '+
+           extern(URL_UITSTELFORMULIER,'Aanvraag uitstel aangifte erfbelasting')+'.';
+  }
+  if(d > bovengrensOverlijden()) return bereikTekst();
+  return null;
+}
+
+function akkoordGegevens(){
+  var v = {};
+  if(!data.brief){ v.brief = 'Beantwoord de vraag.'; teken(v); return; }
+  if(data.brief === 'nee'){ teken(); return; }
+  if(!data.eerder){ v.eerder = 'Beantwoord de vraag.'; teken(v); return; }
+  if(data.eerder === 'ja' && !eenRedenGekozen()){
+    v.redenen = 'Kies de situatie die op u van toepassing is.';   // AANNAME
+    teken(v); return;
+  }
+
+  if(!data.voorletters.trim()) v.voorletters = true;
+  if(!data.achternaam.trim())  v.achternaam = true;
+
+  if(!data.bsn.trim()) v.bsn = 'Vul het burgerservicenummer van de overledene in.';
+  else if(!elfproef(data.bsn.trim())) v.bsn = 'Het burgerservicenummer is niet juist. Een burgerservicenummer bestaat uit 9 cijfers.';
+
+  var fd = valideerDatum();
+  if(fd) v.overlijden = fd;
+
+  if(Object.keys(v).length){ teken(v); return; }
+  ga(2);
+}
+
+function akkoordReden(){
+  var v = {};
+  var n = aantalWoorden(data.motivatie);
+  if(n === 0){
+    v.motivatie = 'Geef aan waarom u uitstel nodig hebt voor het doen van aangifte erfbelasting. '+
+                  'Zonder reden kunnen we geen uitstel verlenen voor het doen van aangifte erfbelasting.';
+  }else if(n <= MIN_WOORDEN && data.motivatieBevestigd !== data.motivatie){
+    /* niet-blokkerend: bij nogmaals Akkoord met dezelfde tekst gaat u door */
+    data.motivatieBevestigd = data.motivatie;
+    v.weinig = 'U hebt weinig woorden gebruikt. Met een uitgebreidere toelichting kunnen wij uw verzoek beter beoordelen.';
+  }
+  if(data.contactEmail && data.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())){
+    v.email = 'Vul een geldig e-mailadres in.';   // AANNAME
+  }
+  if(data.contactTel && data.telefoon.trim() && !/^\+?[0-9][0-9 \-]{8,14}$/.test(data.telefoon.trim())){
+    v.telefoon = 'Vul een geldig telefoonnummer in.';   // AANNAME
+  }
+  if(Object.keys(v).length){ teken(v); return; }
+  ga(3);
+}
+
+function verzend(){
+  if(!data.verklaring){
+    teken();
+    el('fout-onderteken').innerHTML = foutBlok('U moet de verklaring aanvinken voordat u kunt verzenden.');
+    return;
+  }
+  data.verzondenOp = new Date();
+  ga(5);
+}
+
+function opslaan(){
+  try{
+    var blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'uitstel-erfbelasting-'+FORMULIERJAAR+'.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }catch(e){ /* stil */ }
+}
+
+function afsluiten(){
+  if(confirm('Weet u zeker dat u wilt afsluiten? Niet-opgeslagen gegevens gaan verloren.')){
+    data = leegData(); hulpOpen = {};
+    ga(0);
+  }
+}
+
+/* ---------------- render ---------------- */
+
+function teken(v){
+  var id = STAPPEN[huidig].id, h;
+  if(id==='introductie')       h = schermIntroductie();
+  else if(id==='gegevens')     h = schermGegevens(v);
+  else if(id==='reden')        h = schermReden(v);
+  else if(id==='overzicht')    h = schermOverzicht();
+  else if(id==='ondertekenen') h = schermOndertekenen();
+  else                         h = schermBevestiging();
+  el('inhoud').innerHTML = h;
+}
+
+tekenStappen();
+teken();
+</script>
+</body>
+</html>
